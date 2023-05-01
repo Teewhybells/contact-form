@@ -23,19 +23,18 @@ const ContactForm = () => {
   const [name, setName] = useState("");
   const [subject, setSubject] = useState("");
   const [message, setMessage] = useState("");
+  const [emailHasError, setEmailHasError] = useState(false)
+  const [nameHasError, setNameHasError] = useState(false)
+  const [messageHasError, setMessageHasError] = useState(false)
 
-  
-  let emailError = false
-  let nameError = false
-  let messageError = false
 
   const submit = async (event) => {
     event.preventDefault();
 
     if(!email || !name || !message) {
-      emailError = true
-      nameError = true
-      messageError = true
+      setEmailHasError(true)
+      setNameHasError(true)
+      setMessageHasError(true)
 
       toast({
         position: 'bottom-center',
@@ -84,7 +83,7 @@ const ContactForm = () => {
               <FormControl mb='4'>
                 <FormLabel>Your Name</FormLabel>
                 <Input
-                  isInvalid={{nameError}}
+                  isInvalid={emailHasError}
                   type="text"
                   onChange={(event) => setName(event.currentTarget.value)}
                 />
@@ -93,6 +92,7 @@ const ContactForm = () => {
               <FormControl mb='4'>
                 <FormLabel>Your Email</FormLabel>
                 <Input
+                isInvalid={nameHasError}
                   type="email"
                   onChange={(event) => setEmail(event.currentTarget.value)}
                 />
@@ -107,6 +107,7 @@ const ContactForm = () => {
               <FormControl mb='4'>
               <FormLabel>Message</FormLabel>
                 <Textarea
+                  isInvalid={messageHasError}
                   placeholder="Message"
                   onChange={(event) => setMessage(event.currentTarget.value)}
                 />
